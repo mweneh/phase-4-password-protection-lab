@@ -7,6 +7,13 @@ class UsersController < ApplicationController
         end
     end
 
+    def show
+        user = User.find_by(username:params[:username])
+        if user&.authenticate(password: params[:password])
+            render json: user
+        end
+    end
+
     def user_params
         params.permit(:username, :password)
     end
